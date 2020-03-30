@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  <title>{{ app_title }}</title>
+
+</head>
+
+<body>
+    <h1>{{ app_title }}</h1>
+
+    <form action="/shortened" method="post">
+        <label><b>URL:</b></label>
+        <input type="text" name="input" placeholder="your link to shorten" autocomplete="off" autofocus size="100">
+        <button type="submit">Shorten! </button>
+    </form>
+</body>
+</html>
+
