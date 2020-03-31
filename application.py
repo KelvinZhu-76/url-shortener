@@ -53,10 +53,10 @@ def index():
 def search_request():
     user_url = request.form["input"].strip()
     if not user_url:
-        return render_template('error.html', app_title=app_title, res='Your URL link can not be empty!')
+        return render_template('error.html', app_title=app_title, res='URL link can not be empty!')
 
     if not validate_url(user_url):
-        return render_template('error.html', app_title=app_title, res='Your link is not a valid http URL!')
+        return render_template('error.html', app_title=app_title, res='It is not a valid http URL!')
 
     response = requests.post(
         tiny_api_url,
