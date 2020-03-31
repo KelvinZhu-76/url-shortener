@@ -56,7 +56,7 @@ def search_request():
         return render_template('error.html', app_title=app_title, res='URL link can not be empty!')
 
     if not validate_url(user_url):
-        return render_template('error.html', app_title=app_title, res='It is not a valid http URL!')
+        return render_template('error.html', app_title=app_title, res='Please input a valid URL link!')
 
     response = requests.post(
         tiny_api_url,
