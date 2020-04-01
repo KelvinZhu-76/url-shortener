@@ -1,11 +1,13 @@
 import unittest
-import pytest
+import requests
 import json
 
 from application import app
 from application import validate_url
 
 test_app = app.test_client()
+tiny_api_url = 'https://agn54nepyg.execute-api.us-east-2.amazonaws.com/beta/create'
+tiny_url_home = 'https://agn54nepyg.execute-api.us-east-2.amazonaws.com/beta/'
 
 class TestAppliction(unittest.TestCase):
     def test_validate_url_1(self):
@@ -27,8 +29,8 @@ class TestAppliction(unittest.TestCase):
     def test_post_request_1(self):
         headers = {'Content-Type': 'application/json', 'X-Api-Key': 'Kelvin0123456'}
         long_url = 'https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link'
-        resp = test_app.post(
-            '/',
+        resp = requests.post(
+            tiny_api_url,
             headers=headers,
             data=json.dumps({
                 "long_url": long_url
@@ -41,8 +43,8 @@ class TestAppliction(unittest.TestCase):
     def test_post_request_2(self):
         headers = {'Content-Type': 'application/json', 'X-Api-Key': 'asdfasddafs'}
         long_url = 'https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link'
-        resp = test_app.post(
-            '/',
+        resp = requests.post(
+            tiny_api_url,
             headers=headers,
             data=json.dumps({
                 "long_url": long_url
@@ -53,20 +55,13 @@ class TestAppliction(unittest.TestCase):
         self.assertEqual(resp.status_code, 401)
 
     def test_get_request_1(self):
-        resp = test_app.get(
-            '/ZX1pOytdYPN',
-            content_type='application/json'
-        )
-
-        self.assertEqual(resp.status_code, 301)
+        resp = requests.get(tiny_url_home + 'ZX1pOytdYPN')
+        self.assertEqual(resp.url, 'https://docs.aws.amazon.com/zh_cn/cognito/latest/developerguide/what-is-amazon-cognito.html')
 
     def test_get_request_2(self):
-        resp = test_app.get(
-            '/AAAssadfad',
-            content_type='application/json'
-        )
+        resp = requests.get(tiny_url_home + 'AAAssadfad')
+        self.assertEqual(resp.url, 'https://objects.ruanbekker.com/assets/images/404-blue.jpg')
 
-        self.assertEqual(resp.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main()
